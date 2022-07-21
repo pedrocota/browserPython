@@ -51,10 +51,12 @@ body = body[len(headers) + 4:]
 # escrevendo no arquivo
 f.write(body)
 
+# decodificando com caracteres asiaticos utf-8 nao funciona
+body = body.decode('ISO-8859-1')
+
 # output: HTML no terminal
 print(body)
 
-body = body.decode('ISO-8859-1')
 # passando o caminho do arquivo html salvo para ser aberto no browser
 url = 'file://' + os.path.realpath('index.html')
 
