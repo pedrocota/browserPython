@@ -23,8 +23,7 @@ class MainWindow(QtWidgets.QMainWindow):
     
 app = QApplication(sys.argv)
 
-serverName = "www.google.com"
-#serverName = input("Entre com o endereço do servidor HTTP: ")
+serverName = input("Entre com o endereço do servidor HTTP: ")
 serverPort = int(input("Entre com o número da porta: "))
 
 clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,17 +42,6 @@ print("\n Nome introduzido no servidor: ", serverName)
 request = "GET / HTTP/1.1\r\nHost: " + serverName + "\r\nConnection: close \r\n\r\n"
 clientSocket.sendall(request.encode('utf-8'))
 
-## começando a trabalhar com dois arquivos: um vai receber o html + http header
-## enquanto o outro irá receber isso sem o http reader, e será utilizado
-
-f = open("arquivoBodyComHeader", "w") #limpando se já existir
-h = open("htmlSemHeader", "w") #lwimpando se já existir
-f.close() 
-h.close() 
-
-f = open("arquivoBodyComHeader", "r+") #vai receber o HTML com HTTP header
-h = open("htmlSemHeader", "r+") #vai receber o HTML sem header de f
-
 body = b"" #vai armazenar o recebido do servidor de socket
 
 #salvando request em body
@@ -66,8 +54,6 @@ while True:
 
 headers =  body.split(b'\r\n\r\n')[0]
 body = body[len(headers)+4:]
-
-str_name = "<!doctype html>" #definindo o fim do HTTP header
 
 # =============================================================================
 # f.write(body) #salvando body em f
@@ -94,6 +80,7 @@ str_name = "<!doctype html>" #definindo o fim do HTTP header
 # print ("O que passou por body é:", body)
 #  
 # =============================================================================
+
 window = MainWindow()
 app.exec_()
 f.close()
