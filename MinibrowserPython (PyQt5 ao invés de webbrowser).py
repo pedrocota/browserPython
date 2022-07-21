@@ -83,6 +83,4 @@ body = body[len(headers)+4:]
 
 window = MainWindow()
 app.exec_()
-f.close()
-h.close()
 clientSocket.close()
